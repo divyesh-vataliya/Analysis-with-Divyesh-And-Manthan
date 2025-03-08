@@ -279,17 +279,15 @@ result_section.markdown('<div class="result-container"><h3>📊 Results will app
 
 # ✅ Function to display products
 def display_products(selected_category):
-    products = data_new[data_new['category'] == selected_category]
+    products = data_new[data_new['category'] == selected_category].copy()
     if products.empty:
         st.write(f"No products found in {selected_category}.")
         return pd.DataFrame()
 
-    products.fillna({
-        'retail_price': np.random.randint(100, 10000),
-        'discounted_price': np.random.randint(50, 9000),
-        'product_rating': np.random.uniform(1, 5),
-        'overall_rating': np.random.uniform(1, 5),
-    }, inplace=True)
+    products.loc[:, 'retail_price'] = products['retail_price'].fillna(np.random.randint(100, 10000))
+    products.loc[:, 'discounted_price'] = products['discounted_price'].fillna(np.random.randint(50, 9000))
+    products.loc[:, 'product_rating'] = products['product_rating'].fillna(np.random.uniform(1, 5))
+    products.loc[:, 'overall_rating'] = products['overall_rating'].fillna(np.random.uniform(1, 5))
 
     product_html = '<div class="product-container">'
 
