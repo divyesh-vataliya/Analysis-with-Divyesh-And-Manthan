@@ -170,10 +170,10 @@ unique_categories = data_new['category'].dropna().unique()
 
 # ✅ Default images for categories
 category_images = {
-    "Kurtis": "https://your-image-url.com/kurtis_default.jpg",
-    "Shoes": "https://your-image-url.com/shoes_default.jpg",
-    "Bracelets": "https://your-image-url.com/bracelets_default.jpg",
-    "Handbags": "https://your-image-url.com/handbags_default.jpg",
+    "Kurtis": "https://via.placeholder.com/150?text=Kurtis",
+    "Shoes": "https://via.placeholder.com/150?text=Shoes",
+    "Bracelets": "https://via.placeholder.com/150?text=Bracelets",
+    "Handbags": "https://via.placeholder.com/150?text=Handbags",
     # Add more categories if needed
 }
 
@@ -296,9 +296,9 @@ def display_products(selected_category):
     for _, row in products.iterrows():
         try:
             image_urls = ast.literal_eval(row['image'])
-            image_url = image_urls[0] if image_urls else category_images.get(selected_category, "https://via.placeholder.com/150")
+            image_url = image_urls[0] if image_urls else category_images.get(selected_category, "https://via.placeholder.com/150?text=No+Image")
         except:
-            image_url = category_images.get(selected_category, "https://via.placeholder.com/150")
+            image_url = category_images.get(selected_category, "https://via.placeholder.com/150?text=No+Image")
 
         product_html += f"""
         <div class="product-card">
