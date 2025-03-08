@@ -295,8 +295,11 @@ def display_products(selected_category):
         try:
             image_urls = ast.literal_eval(row['image'])
             image_url = image_urls[0] if image_urls else category_images.get(selected_category, "https://via.placeholder.com/150?text=No+Image")
-        except:
+        except Exception as e:
+            st.write(f"Error processing image URL for product {row['product_name']}: {e}")
             image_url = category_images.get(selected_category, "https://via.placeholder.com/150?text=No+Image")
+
+        st.write(f"Processing product: {row['product_name']}, Image URL: {image_url}")  # Debugging information
 
         product_html += f"""
         <div class="product-card">
