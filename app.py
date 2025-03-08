@@ -273,7 +273,7 @@ result_section.markdown('<div class="result-container"><h3>📊 Results will app
 # ✅ Function to check if an image URL is accessible
 def is_image_accessible(url):
     try:
-        response = requests.head(url)
+        response = requests.head(url, timeout=5)
         return response.status_code == 200
     except:
         return False
