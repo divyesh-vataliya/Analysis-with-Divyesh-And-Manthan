@@ -308,8 +308,6 @@ def display_products(selected_category):
             st.write(f"Error processing image URL for product {row['product_name']}: {e}")
             image_url = category_images.get(selected_category, "https://via.placeholder.com/150?text=No+Image")
 
-        st.write(f"Processing product: {row['product_name']}, Image URL: {image_url}")  # Debugging information
-
         product_html += f"""
         <div class="product-card">
             <img src="{image_url}" alt="Product Image">
