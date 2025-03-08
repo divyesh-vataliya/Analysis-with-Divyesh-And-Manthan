@@ -7,7 +7,7 @@ import time
 
 #_______________________________________________________________ Front Page ____________________________________________________________________________________________________________________
 
-import streamlit as st
+
 
 # ✅ Set page configuration
 st.set_page_config(page_title="E-Commerce Analysis", page_icon="🛒", layout="wide")
