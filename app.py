@@ -4,6 +4,7 @@ import streamlit as st
 import ast
 import matplotlib.pyplot as plt
 import time
+import requests
 
 #_______________________________________________________________ Front Page ____________________________________________________________________________________________________________________
 
@@ -277,6 +278,14 @@ for i in range(num_categories):
 result_section = st.empty()
 result_section.markdown('<div class="result-container"><h3>📊 Results will appear here after clicking "Compare Categories"</h3><p>Select categories from the sidebar and click the button to generate insights.</p></div>', unsafe_allow_html=True)
 
+# ✅ Function to check if an image URL is accessible
+def is_image_accessible(url):
+    try:
+        response = requests.head(url)
+        return response.status_code == 200
+    except:
+        return False
+
 # ✅ Function to display products
 def display_products(selected_category):
     products = data_new[data_new['category'] == selected_category].copy()
@@ -294,7 +303,7 @@ def display_products(selected_category):
     for _, row in products.iterrows():
         try:
             image_urls = ast.literal_eval(row['image'])
-            image_url = image_urls[0] if image_urls else category_images.get(selected_category, "https://via.placeholder.com/150?text=No+Image")
+            image_url = image_urls[0] if image_urls and is_image_accessible(image_urls[0]) else category_images.get(selected_category, "https://via.placeholder.com/150?text=No+Image")
         except Exception as e:
             st.write(f"Error processing image URL for product {row['product_name']}: {e}")
             image_url = category_images.get(selected_category, "https://via.placeholder.com/150?text=No+Image")
